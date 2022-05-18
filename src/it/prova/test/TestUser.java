@@ -40,6 +40,8 @@ public class TestUser {
 
 			testCercaPerCognomeENomeCheInziaCon(userService);
 
+			testAccedi(userService);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -143,6 +145,13 @@ public class TestUser {
 		for (User userItem : result)
 			System.out.println(userItem);
 		System.out.println("Fine testCercaPerCognomeENomeCheInziaCon");
+	}
+
+	private static void testAccedi(UserService userService) throws Exception {
+		System.out.println("Inizio testAccedi");
+		User result = userService.accedi("gio", "pwd@3");
+		System.out.println(result);
+		System.out.println("Fine testAccedi!");
 	}
 
 }
