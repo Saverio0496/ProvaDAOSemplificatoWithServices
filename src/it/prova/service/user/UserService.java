@@ -29,7 +29,7 @@ public interface UserService {
 	
 	public List<User> cercaTuttiQuelliCreatiPrimaDi(Date dataConfronto) throws Exception;
 	
-	public List<User> cercaPerCognomeENomeCheInziaCon(String cognomeInput, String inzialeNomeInput) throws Exception;
+	public List<User> cercaPerCognomeENomeCheInziaCon(String cognomeInput, String inizialeNomeInput) throws Exception;
 
 	public User accedi(String loginInput, String passwordInput) throws Exception;
 }

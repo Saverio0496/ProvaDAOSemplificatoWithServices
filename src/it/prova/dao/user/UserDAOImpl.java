@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import it.prova.dao.AbstractMySQLDAO;
@@ -239,8 +240,71 @@ public class UserDAOImpl extends AbstractMySQLDAO implements UserDAO {
 		return result;
 	}
 
-	public List<User> cercaTuttiQuelliCheUsernameIniziaConDAO(String iniziale) throws Exception {
-		return null;
+	public List<User> cercaTuttiQuelliCreatiPrimaDi(Date dataConfronto) throws Exception {
+		if (isNotActive())
+			throw new Exception("Connessione non attiva. Impossibile effettuare operazioni DAO.");
+
+		if (dataConfronto == null)
+			throw new Exception("Valore di input non ammesso.");
+
+		ArrayList<User> result = new ArrayList<User>();
+		User userTemp = null;
+
+		try (PreparedStatement ps = connection.prepareStatement("select * from user where dateCreated < ? ;")) {
+			ps.setDate(1, new java.sql.Date(dataConfronto.getTime()));
+
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					userTemp = new User();
+					userTemp.setNome(rs.getString("NOME"));
+					userTemp.setCognome(rs.getString("COGNOME"));
+					userTemp.setLogin(rs.getString("LOGIN"));
+					userTemp.setPassword(rs.getString("PASSWORD"));
+					userTemp.setDateCreated(rs.getDate("DATECREATED"));
+					userTemp.setId(rs.getLong("ID"));
+					result.add(userTemp);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return result;
 	}
 
+	public List<User> cercaPerCognomeENomeCheInziaCon(String cognomeInput, String inizialeNomeInput) throws Exception {
+		if (isNotActive())
+			throw new Exception("Connessione non attiva. Impossibile effettuare operazioni DAO.");
+
+		if (cognomeInput == null || inizialeNomeInput == null)
+			throw new Exception("Valore di input non ammesso.");
+
+		List<User> result = null;
+		User userTemp = null;
+
+		try (PreparedStatement ps = connection
+				.prepareStatement("select * from user where cognome=? and nome like ? ;")) {
+			ps.setString(1, cognomeInput);
+			ps.setString(2, inizialeNomeInput + '%');
+
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					userTemp = new User();
+					userTemp.setNome(rs.getString("NOME"));
+					userTemp.setCognome(rs.getString("COGNOME"));
+					userTemp.setLogin(rs.getString("LOGIN"));
+					userTemp.setPassword(rs.getString("PASSWORD"));
+					userTemp.setDateCreated(rs.getDate("DATECREATED"));
+					userTemp.setId(rs.getLong("ID"));
+					result.add(userTemp);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return result;
+	}
 }

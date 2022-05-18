@@ -1,5 +1,6 @@
 package it.prova.test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class TestUser {
 
 			// E TUTTI I TEST VANNO FATTI COSI'
 			testCercaTuttiQuelliCheUsernameIniziaCon(userService);
+
+			testCercaTuttiQuelliCreatiPrimaDi(userService);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,6 +124,19 @@ public class TestUser {
 		for (User userItem : result)
 			System.out.println(userItem);
 		System.out.println("Fine testCercaTuttiQuelliCheUsernameIniziaCon!");
+	}
+
+	private static void testCercaTuttiQuelliCreatiPrimaDi(UserService userService) throws Exception {
+		System.out.println("Inizio testCercaTuttiQuelliCreatiPrimaDi");
+		Date dataPerTest = new SimpleDateFormat("dd-MM-yyyy").parse("03-08-2022");
+		List<User> result = userService.cercaTuttiQuelliCreatiPrimaDi(dataPerTest);
+		for (User userItem : result)
+			System.out.println(userItem);
+		System.out.println("Fine testCercaTuttiQuelliCreatiPrimaDi!");
+	}
+	
+	private static void testCercaPerCognomeENomeCheInziaCon(UserService userService) throws Exception {
+		System.out.println("Inizio ");
 	}
 
 }
