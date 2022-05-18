@@ -10,8 +10,8 @@ public interface UserDAO extends IBaseDAO<User> {
 	public List<User> cercaTuttiQuelliCheUsernameIniziaCon(String iniziale) throws Exception;
 
 	public List<User> cercaTuttiQuelliCreatiPrimaDi(Date dataConfronto) throws Exception;
-	
+
 	public List<User> cercaPerCognomeENomeCheInziaCon(String cognomeInput, String inizialeNomeInput) throws Exception;
-	
-	
+
+	public User accedi(String loginInput, String passwordInput) throws Exception;
 }

@@ -38,6 +38,8 @@ public class TestUser {
 
 			testCercaTuttiQuelliCreatiPrimaDi(userService);
 
+			testCercaPerCognomeENomeCheInziaCon(userService);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,9 +136,13 @@ public class TestUser {
 			System.out.println(userItem);
 		System.out.println("Fine testCercaTuttiQuelliCreatiPrimaDi!");
 	}
-	
+
 	private static void testCercaPerCognomeENomeCheInziaCon(UserService userService) throws Exception {
-		System.out.println("Inizio ");
+		System.out.println("Inizio testCercaPerCognomeENomeCheInziaCon");
+		List<User> result = userService.cercaPerCognomeENomeCheInziaCon("carelli", "s");
+		for (User userItem : result)
+			System.out.println(userItem);
+		System.out.println("Fine testCercaPerCognomeENomeCheInziaCon");
 	}
 
 }

@@ -280,7 +280,7 @@ public class UserDAOImpl extends AbstractMySQLDAO implements UserDAO {
 		if (cognomeInput == null || inizialeNomeInput == null)
 			throw new Exception("Valore di input non ammesso.");
 
-		List<User> result = null;
+		ArrayList<User> result = new ArrayList<User>();
 		User userTemp = null;
 
 		try (PreparedStatement ps = connection
